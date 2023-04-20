@@ -4,7 +4,7 @@ import 'package:todo_app/provider/tasks_provider.dart';
 import 'package:todo_app/screens/add_task_screen.dart';
 import 'package:todo_app/screens/tasks_list_screen.dart';
 
-void main() => runApp(TodoApp());
+void main() => runApp(const TodoApp());
 
 class TodoApp extends StatelessWidget {
   const TodoApp({Key? key}) : super(key: key);
