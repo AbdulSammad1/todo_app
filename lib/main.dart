@@ -21,7 +21,7 @@ class TodoApp extends StatelessWidget {
         ),
         home: const TasksListScreen(),
         routes: {
-          AddTaskScreen.routeName: (ctx) => AddTaskScreen(),
+          AddTaskScreen.routeName: (ctx) => const AddTaskScreen(),
         },
       ),
     );

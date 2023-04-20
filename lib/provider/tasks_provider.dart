@@ -9,10 +9,16 @@ class Tasksprovider with ChangeNotifier {
   }
 
   void addTask(String title) {
-    final newTask = Task(id: DateTime.now().toString(), title: title);
+    final newTask =
+        Task(id: DateTime.now().toString(), title: title, completed: false);
 
     _items.add(newTask);
 
+    notifyListeners();
+  }
+
+  void toggleCompleteStatus(int index) {
+    _items[index].completed = !_items[index].completed;
     notifyListeners();
   }
 }
