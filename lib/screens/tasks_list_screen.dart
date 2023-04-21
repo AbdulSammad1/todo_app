@@ -17,14 +17,14 @@ class TasksListScreen extends StatelessWidget {
             .fetchAndSetTasks(),
         builder: (context, snapshot) => snapshot.connectionState ==
                 ConnectionState.waiting
-            ? Center(
+            ? const Center(
                 child: CircularProgressIndicator(),
               )
             : Consumer<Tasksprovider>(
                 child: const Center(
                   child: Text('no item added yet'),
                 ),
-                builder: (context, tasks, ch) => tasks.items.length <= 0
+                builder: (context, tasks, ch) => tasks.items.isEmpty
                     ? ch!
                     : ListView.builder(
                         itemCount: tasks.items.length,
