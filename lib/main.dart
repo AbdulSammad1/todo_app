@@ -19,7 +19,7 @@ class TodoApp extends StatelessWidget {
           primarySwatch: Colors.blueGrey,
           primaryColor: Colors.deepOrange,
         ),
-        home: const TasksListScreen(),
+        home: TasksListScreen(),
         routes: {
           AddTaskScreen.routeName: (ctx) => const AddTaskScreen(),
         },

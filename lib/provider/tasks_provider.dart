@@ -4,9 +4,14 @@ import '../models/task.dart';
 
 class Tasksprovider with ChangeNotifier {
   List<Task> _items = [];
+  List<Task> _completedTasks = [];
 
   List<Task> get items {
     return [..._items];
+  }
+
+  List<Task> get completedTasks {
+    return [..._completedTasks];
   }
 
   void addTask(String title) {
@@ -27,7 +32,13 @@ class Tasksprovider with ChangeNotifier {
   void toggleCompleteStatus(int index) async {
     _items[index].completed = !_items[index].completed;
     await DBHelper.updateTask(_items[index]);
+
     notifyListeners();
+
+    // sleep(duration);
+    // _items.removeAt(index);
+
+    // notifyListeners();
   }
 
   void delTask(String id) {
@@ -39,6 +50,22 @@ class Tasksprovider with ChangeNotifier {
 
   Future<void> fetchAndSetTasks() async {
     final dataList = await DBHelper.getData('usertasks');
+
+    _items = dataList
+        .map(
+          (item) => Task(
+            id: item['id'],
+            title: item['title'],
+            completed: item['completed'] == 1,
+          ),
+        )
+        .toList();
+
+    notifyListeners();
+  }
+
+  Future<void> fetchUncompletedTasks() async {
+    final dataList = await DBHelper.getUncompletedTasks('usertasks', 0);
 
     _items = dataList
         .map(

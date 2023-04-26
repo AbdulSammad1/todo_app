@@ -13,6 +13,13 @@ class AddTaskScreen extends StatefulWidget {
 class _AddTaskScreenState extends State<AddTaskScreen> {
   final _titleController = TextEditingController();
 
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    _titleController.dispose();
+  }
+
   void _savetask() {
     if (_titleController.text.isEmpty) {
       return;

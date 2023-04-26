@@ -21,7 +21,7 @@ class Task {
     return Task(
       id: map['id'],
       title: map['title'],
-      completed: map['completes'] == 1,
+      completed: map['completed'] == 1,
     );
   }
 }

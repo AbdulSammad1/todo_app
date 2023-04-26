@@ -1,8 +1,18 @@
 import 'package:sqflite/sqflite.dart' as sql;
 import 'package:path/path.dart' as path;
+import 'package:sqflite/sqflite.dart';
 import 'package:todo_app/models/task.dart';
 
 class DBHelper {
+  static Database? _database;
+
+  static Future<Database> get database async {
+    if (_database != null) return _database!;
+
+    _database = await dataBase();
+    return _database!;
+  }
+
   static Future<sql.Database> dataBase() async {
     final dbPath = await sql.getDatabasesPath();
 
@@ -53,5 +63,27 @@ class DBHelper {
     final db = await DBHelper.dataBase();
 
     return db.query(table);
+  }
+
+  static Future<List<Map<String, dynamic>>> getUncompletedTasks(
+      String table, int d) async {
+    final db = await DBHelper.dataBase();
+
+    return await db.query(table, where: 'completed = ?', whereArgs: [d]);
+  }
+
+  static Stream<List<Task>> getUncompletedTasksStream(String table, int d) {
+    final db = _database!;
+
+    return db
+        .query(table, where: 'completed = ?', whereArgs: [d])
+        .asStream()
+        .map(
+          (tasksList) {
+            return tasksList.map((taskMap) {
+              return Task.fromMap(taskMap);
+            }).toList();
+          },
+        );
   }
 }
