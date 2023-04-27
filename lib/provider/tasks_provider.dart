@@ -64,8 +64,8 @@ class Tasksprovider with ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> fetchUncompletedTasks() async {
-    final dataList = await DBHelper.getUncompletedTasks('usertasks', 0);
+  Future<void> fetchUncompletedTasks(int d) async {
+    final dataList = await DBHelper.getUncompletedTasks('usertasks', d);
 
     _items = dataList
         .map(
